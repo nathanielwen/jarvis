@@ -1,12 +1,11 @@
 import com.google.common.io.Files;
-import org.apache.commons.lang.StringUtils;
+import util.StringUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * Created by Wing on 20/4/4.
@@ -15,7 +14,7 @@ public class Parser {
 
     private static final String BLOCK_START = "-----";
 
-    private static Pattern pattern = Pattern.compile("\\d{4}/\\d{2}/\\d{2}");
+    private static final String DATE_REGEX = "\\d{4}/\\d{2}/\\d{2}";
 
     public List<Block> parse(String path) {
 
@@ -27,12 +26,12 @@ public class Parser {
             Charset charset = Charset.defaultCharset();
             List<String> lines = Files.readLines(file, charset);
             for (String line: lines) {
-                if (StringUtils.equals(BLOCK_START, line)) {
+                if (StringUtil.equals(BLOCK_START, line)) {
                     blocks.add(block);
                     block = new Block();
-                } else if (pattern.matcher(line).find()) {
+                } else if (StringUtil.isMatch(line, DATE_REGEX)) {
                     block.setDate(line);
-                } else if (StringUtils.isBlank(line)) {
+                } else if (StringUtil.isBlank(line)) {
                     continue;
                 } else {
                     block.addContent(line);

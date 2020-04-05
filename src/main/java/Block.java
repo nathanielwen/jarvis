@@ -16,26 +16,16 @@ public class Block {
 
     private List<String> content = new ArrayList<String>();
 
+    private StringBuilder builder = new StringBuilder();
+
     public void addContent(String line) {
-        content.add(line);
-    }
-
-    public List<String> format() {
-
-        List<String> formattedContent = new ArrayList<>();
-        StringBuilder builder = new StringBuilder();
-        for (String line : content) {
-            if (StringUtils.startsWith(line, "》]")) {
-                builder.append(line);
-                continue;
-            } else if (StringUtils.startsWith(line, "简评：")) {
-                builder.append(line);
-                formattedContent.add(builder.toString());
-                continue;
-            } else {
-                builder = new StringBuilder(line);
-            }
+        if (StringUtils.startsWith(line, "》]")) {
+            builder.append(line);
+        } else if (StringUtils.startsWith(line, "简评：")) {
+            builder.append(line);
+            content.add(builder.toString());
+        } else {
+            builder = new StringBuilder(line);
         }
-        return formattedContent;
     }
 }
