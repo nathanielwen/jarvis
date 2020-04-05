@@ -17,13 +17,13 @@ public class Parser {
 
     private static Pattern pattern = Pattern.compile("\\d{4}/\\d{2}/\\d{2}");
 
-    public static void main(String[] args) {
+    public List<Block> parse(String path) {
 
-        List<Block> blocks = new ArrayList<Block>();
+        List<Block> blocks = new ArrayList<>();
 
         Block block = new Block();
         try {
-            File file = new File("/Users/Wing/Desktop/test.md");
+            File file = new File(path);
             Charset charset = Charset.defaultCharset();
             List<String> lines = Files.readLines(file, charset);
             for (String line: lines) {
@@ -39,9 +39,10 @@ public class Parser {
                 }
             }
             blocks.remove(0);
-            return;
         } catch (IOException e) {
-            e.printStackTrace();
+            blocks = null;
         }
+
+        return blocks;
     }
 }
