@@ -1,3 +1,5 @@
+import domain.Block;
+
 import java.util.List;
 
 /**

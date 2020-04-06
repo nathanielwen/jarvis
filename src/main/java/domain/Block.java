@@ -1,3 +1,5 @@
+package domain;
+
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
 
