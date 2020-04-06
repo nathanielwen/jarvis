@@ -1,6 +1,6 @@
-package util;
+package com.wonqee.jarvis.util;
 
-import domain.Record;
+import com.wonqee.jarvis.domain.Record;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

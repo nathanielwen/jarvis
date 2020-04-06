@@ -1,8 +1,9 @@
-package domain;
+package com.wonqee.jarvis.domain;
 
+import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
-import util.StringUtil;
+import com.wonqee.jarvis.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +13,9 @@ import java.util.List;
  */
 public class Block {
 
-    private static final String REGEX = "《(?<title>\\S+)》]\\((?<url>\\S*)\\)简评：(?<comment>\\S+)";
+    private static final String REGEX = "《(?<title>\\S+)》]\\((?<url>\\S*)\\)简评：(?<comment>.+)";
 
+    @Getter
     private List<Record> records = new ArrayList<>();
 
     @Setter

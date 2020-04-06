@@ -1,6 +1,8 @@
+package com.wonqee.jarvis.service;
+
 import com.google.common.io.Files;
-import domain.Block;
-import util.StringUtil;
+import com.wonqee.jarvis.domain.Block;
+import com.wonqee.jarvis.util.StringUtil;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package domain;
+package com.wonqee.jarvis.domain;
 
 import lombok.Getter;
 import lombok.Setter;

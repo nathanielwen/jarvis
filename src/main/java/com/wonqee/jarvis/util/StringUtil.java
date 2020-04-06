@@ -1,4 +1,4 @@
-package util;
+package com.wonqee.jarvis.util;
 
 import org.apache.commons.lang.StringUtils;
 
