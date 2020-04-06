@@ -2,6 +2,7 @@ package domain;
 
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
+import util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +12,14 @@ import java.util.List;
  */
 public class Block {
 
-    private List<Record> records;
+    private static final String REGEX = "《(?<title>\\S+)》]\\((?<url>\\S*)\\)简评：(?<comment>\\S+)";
+
+    private List<Record> records = new ArrayList<>();
 
     @Setter
     private String date;
 
-    private List<String> content = new ArrayList<String>();
+    private List<String> content = new ArrayList<>();
 
     private StringBuilder builder = new StringBuilder();
 
@@ -26,8 +29,12 @@ public class Block {
         } else if (StringUtils.startsWith(line, "简评：")) {
             builder.append(line);
             content.add(builder.toString());
+
+            Record record = StringUtil.buildFromRegex(builder.toString(), REGEX, Record.class);
+            records.add(record);
         } else {
             builder = new StringBuilder(line);
+
         }
     }
 }
