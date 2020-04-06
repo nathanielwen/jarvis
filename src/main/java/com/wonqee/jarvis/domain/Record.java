@@ -1,16 +1,27 @@
 package com.wonqee.jarvis.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by Wing on 20/4/4.
  */
-@Getter
-@Setter
-public class Record {
+@Data
+@ToString
+@Document(collection = "record")
+public class Record implements Serializable {
+
+    private static final long serialVersionUID = 5094995541812833015L;
+
+    @Id
+    private String id;
+
     /**
      * 标题
      */
@@ -36,5 +47,8 @@ public class Record {
      */
     private List<String> tags;
 
-    private String date;
+    /**
+     * 日期
+     */
+    private Date date;
 }

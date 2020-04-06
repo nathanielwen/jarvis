@@ -17,7 +17,7 @@ public class Parser {
 
     private static final String BLOCK_START = "-----";
 
-    private static final String DATE_REGEX = "\\d{4}/\\d{2}/\\d{2}";
+    private static final String DATE_REGEX = "^\\d{4}/\\d{2}/\\d{2}$";
 
     public List<Block> parse(String path) {
 

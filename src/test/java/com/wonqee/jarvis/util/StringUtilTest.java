@@ -34,7 +34,7 @@ public class StringUtilTest {
     @Test
     public void testBuildFromRegex() {
         String str = "1. 标题：[《title》](url)简评：comment";
-        String regex = "《(?<title>\\S+)》]\\((?<url>\\S*)\\)简评：(?<comment>\\S+)";
+        String regex = "标题：[《?(?<title>.+)》?]\\((?<url>.*)\\)简评：(?<comment>.+)";
         Record record = StringUtil.buildFromRegex(str, regex, Record.class);
         Assert.assertEquals(record.getTitle(), "title");
         Assert.assertEquals(record.getUrl(), "url");

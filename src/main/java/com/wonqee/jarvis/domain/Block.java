@@ -1,9 +1,9 @@
 package com.wonqee.jarvis.domain;
 
+import com.wonqee.jarvis.util.DateUtil;
+import com.wonqee.jarvis.util.StringUtil;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang.StringUtils;
-import com.wonqee.jarvis.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Block {
 
-    private static final String REGEX = "《(?<title>\\S+)》]\\((?<url>\\S*)\\)简评：(?<comment>.+)";
+    private static final String REGEX = "标题：\\[《?(?<title>.+?)》?\\]\\((?<url>.*)\\)简评：(?<comment>.+)";
 
     @Getter
     private List<Record> records = new ArrayList<>();
@@ -26,17 +26,22 @@ public class Block {
     private StringBuilder builder = new StringBuilder();
 
     public void addContent(String line) {
-        if (StringUtils.startsWith(line, "》]")) {
+        if (StringUtil.startsWith(line, "》]")
+                || StringUtil.startsWith(line, ")")) {
             builder.append(line);
-        } else if (StringUtils.startsWith(line, "简评：")) {
+        } else if (StringUtil.startsWith(line, "简评：")
+                || StringUtil.startsWith(line, ")简评：")) {
             builder.append(line);
             content.add(builder.toString());
 
             Record record = StringUtil.buildFromRegex(builder.toString(), REGEX, Record.class);
+            if (record == null) {
+                throw new RuntimeException(this.content.toString());
+            }
+            record.setDate(DateUtil.valueOf(date, DateUtil.COMMON_FORMAT));
             records.add(record);
         } else {
             builder = new StringBuilder(line);
-
         }
     }
 }
